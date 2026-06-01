@@ -1,0 +1,7 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/dev/path-tracer/build/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
