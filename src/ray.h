@@ -1,12 +1,12 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include 'vec3.h';
+#include "vec3.h"
 
 class ray {
 private:
     point3 ori;
-    vector3 dir;
+    vec3 dir;
 public:
     ray () {}
 
@@ -15,9 +15,12 @@ public:
     const point3& origin() const {return ori;}
     const vec3& direction() const {return dir;}
 
-    point3& at (double t) {
-        return orig + t * dir;
+    point3 at (double t) const {
+        return ori + t * dir;
     }
+
+
+    // ray -> t * d + Q, where d is direction vector
 };
 
 #endif

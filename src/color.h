@@ -16,6 +16,8 @@ void write_color (std::ostream& out, const color& pixel) {
     int gb = int(255.999 * g);
     int bb = int(255.999 * b);
 
+    // pixel dimensions from 0 to 1
+
     out << rb << ' ' << gb << ' ' << bb << '\n';   
 }
 
