@@ -8,7 +8,7 @@ private:
 public:
     sphere(const point3& center, const double radius) : center(center), radius(std::fmax(0.0,radius)) {}
     bool hit (const ray& r, interval ray_t, hit_record& rec) const override {
-        vec3 oc = center - r.origin();
+        vec3 oc = r.origin() - center;
         double a = r.direction().length_squared();
         double h = dot(r.direction(), oc);
         double c = oc.length_squared() - radius*radius;
@@ -18,9 +18,9 @@ public:
         auto sqrtd = std::sqrt(discriminant);
 
         // we have to find that nearest root (camera facing) that lies in range [tmin,tmax]
-        auto root = (h - sqrtd)/a;
+        auto root = (-h - sqrtd)/a;
         if (!ray_t.surrounds(root)) {
-            root = (h+sqrtd)/a;
+            root = (-h+sqrtd)/a;
             if (!ray_t.surrounds(root)) {
                 return false;
             }
