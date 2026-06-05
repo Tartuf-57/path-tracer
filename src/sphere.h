@@ -1,5 +1,5 @@
 #ifndef SPHERE_H
-#define SPHERE_h
+#define SPHERE_H
 
 class sphere : virtual public hittable {
 private:
@@ -7,7 +7,7 @@ private:
     double radius;
 public:
     sphere(const point3& center, const double radius) : center(center), radius(std::fmax(0.0,radius)) {}
-    bool hit (const ray& r, double tmin, double tmax, hit_record& rec) const override {
+    bool hit (const ray& r, interval ray_t, hit_record& rec) const override {
         vec3 oc = center - r.origin();
         double a = r.direction().length_squared();
         double h = dot(r.direction(), oc);
@@ -19,9 +19,9 @@ public:
 
         // we have to find that nearest root (camera facing) that lies in range [tmin,tmax]
         auto root = (h - sqrtd)/a;
-        if (root <= tmin || root >= tmax) {
+        if (!ray_t.surrounds(root)) {
             root = (h+sqrtd)/a;
-            if (root <= tmin || root >= tmax) {
+            if (!ray_t.surrounds(root)) {
                 return false;
             }
         }
