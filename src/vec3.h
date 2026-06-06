@@ -50,7 +50,13 @@ public:
     static vec3 random(double min, double max) {
         return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
     }
-};
+    bool near_zero () {
+        if (std::fabs(e[0]) <= 1e-6 && std::fabs(e[1]) <=1e-6 && std::fabs(e[2]) <=1e-6) {
+            return true;
+        }
+        return false;
+    }
+}; 
 
 // alias for position vector
 using point3 = vec3;
@@ -113,6 +119,10 @@ inline vec3 random_on_hemishpere(const vec3& normal) {
         return on_unit_sphere;
     }
     else{return -on_unit_sphere;}
+}
+
+inline vec3 reflect(const vec3& v, const vec3& n) {
+    return (v - 2*dot(v,n)*n);
 }
 
 #endif
